@@ -1,14 +1,16 @@
 import time
 from selenium import webdriver
 import pytest
+from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture()
 def browser():
-    chrome_browser = webdriver.Chrome()
+    options = Options()
+    options.add_argument('--headless--')
+    chrome_browser = webdriver.Chrome(options=options)
     return chrome_browser
 
 def test_button(browser):
     browser.get("https://id-store.ru/")
-    time.sleep(5)
     assert browser.find_element("xpath", "//a[@href='/basket/']").is_displayed()
 
